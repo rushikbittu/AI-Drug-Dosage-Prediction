@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Drug Dosage Prediction System</title>
+    <link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.0.0-alpha.6/css/bootstrap.css'>
+    <link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.3.0/css/mdb.min.css'>
+    <link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css'>
+    <style>
+        body {
+            padding-top: 70px;
+            background: url("data:image/jpeg;base64,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") no-repeat center center fixed; 
+            background-size: cover;
+            background-color: rgba(0, 0, 0, 0.5); /* Transparent overlay */
+            color: white; /* White text for contrast */
+        }
+        .navbar {
+            background-color: rgba(0, 0, 0, 0.7); /* Slightly dark navbar */
+        }
+        .form-section, .home-section {
+            margin-top: 50px;
+            background-color: rgba(0, 0, 0, 0.7); /* Dark transparent background */
+            border-radius: 10px;
+            padding: 30px;
+        }
+        .form-control {
+            border-radius: 5px;
+        }
+        .btn-primary {
+            background-color: #007bff;
+            border: none;
+            border-radius: 20px;
+            padding: 10px 20px;
+            font-size: 16px;
+        }
+        .footer-copyright {
+            background-color: rgba(0, 0, 0, 0.7);
+            color: white;
+            text-align: center;
+            padding: 20px;
+        }
+        .footer-copyright a {
+            color: #007bff;
+        }
+    </style>
+</head>
+<body>
+    <!--Navbar-->
+    <nav class="navbar navbar-expand-lg navbar-dark fixed-top scrolling-navbar">
+        <div class="container">
+            <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarNav1" aria-controls="navbarNav1" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <a class="navbar-brand" href="#">Drug Dosage Prediction</a>
+            <div class="collapse navbar-collapse" id="navbarNav1">
+                <ul class="navbar-nav ml-auto">
+                    <li class="nav-item active">
+                        <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <!--/.Navbar-->
+
+    <!-- Home section -->
+    <div class="container home-section text-center">
+        <h1>Welcome to Drug Dosage Prediction System</h1>
+        <p>Your health is our priority. Our AI system provides optimized drug dosages tailored to individual patients based on their genetic and health data.</p>
+    </div>
+
+    <!-- Form section -->
+    <div class="container form-section">
+        <h1 class="text-center">Enter Patient Data</h1>
+        <form action="/predict" method="post" class="form-group">
+            <div class="form-row">
+                <div class="col-md-6 mb-3">
+                    <label for="age">Age</label>
+                    <input type="text" class="form-control" id="age" name="age" required>
+                </div>
+                <div class="col-md-6 mb-3">
+                    <label for="weight">Weight</label>
+                    <input type="text" class="form-control" id="weight" name="weight" required>
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="col-md-6 mb-3">
+                    <label for="genetic_marker1">Genetic Marker 1</label>
+                    <input type="text" class="form-control" id="genetic_marker1" name="genetic_marker1" required>
+                </div>
+                <div class="col-md-6 mb-3">
+                    <label for="genetic_marker2">Genetic Marker 2</label>
+                    <input type="text" class="form-control" id="genetic_marker2" name="genetic_marker2" required>
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="col-md-12 mb-3">
+                    <label for="current_medication">Current Medication</label>
+                    <input type="text" class="form-control" id="current_medication" name="current_medication" required>
+                </div>
+            </div>
+            <button class="btn btn-primary btn-block" type="submit">Predict Dosage</button>
+        </form>
+    </div>
+
+    <!-- Footer -->
+    <footer class="page-footer center-on-small-only">
+        <div class="footer-copyright">
+            <div class="container-fluid">
+                Copyright © <a href="#">Drug Dosage Prediction System</a> - All rights reserved
+            </div>
+        </div>
+    </footer>
+    <!--/.Footer-->
+
+    <script src='https://code.jquery.com/jquery-3.2.1.min.js'></script>
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.0.0-alpha.6/js/bootstrap.js'></script>
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.3.0/js/mdb.min.js'></script>
+</body>
+</html>
